@@ -1,26 +1,15 @@
 <template>
-    <v-container fluid>
-        <v-row justify="space-around">
-            <v-col justify="space-around">
-                <LanguageExamples/>
-            </v-col>
-            <v-col justify="space-around">
-                <LanguageExamples/>
-            </v-col>
-        </v-row>
-    </v-container>
+<div>
+    <h1 class="display-1">Select language 1:</h1>
+    <v-select v-model="language1" :items="languages" item-value="id" item-text="name"></v-select>
+</div>
 </template>
 
 <script>
 
 import { mapState } from 'vuex';
 
-import LanguageExamples from '@/components/LanguageExamples.vue'
-
 export default {
-    components: {
-        LanguageExamples
-    },
     // created: async () => {
     //     await context.store.dispatch('languages/fetchLanguages');
     // },
