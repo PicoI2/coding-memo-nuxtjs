@@ -2,6 +2,7 @@
 <div>
     <h1 class="display-1">Select language {{columnIndex}}:</h1>
     <v-select v-model="language" :items="languages" item-text="name" @change="languageSelected"></v-select>
+    <LanguageExample code='const todo = "todo";'/>
 </div>
 </template>
 
@@ -10,7 +11,12 @@
 import { mapState } from 'vuex';
 import { mapMutations } from 'vuex';
 
+import LanguageExample from '@/components/LanguageExample.vue'
+
 export default {
+    components: {
+        LanguageExample,
+    },
     // created: async () => {
     //     await context.store.dispatch('languages/fetchLanguages');
     // },

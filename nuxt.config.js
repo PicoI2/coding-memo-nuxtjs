@@ -25,6 +25,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    { src: '~/node_modules/highlight.js/styles/tomorrow-night-bright', lang: 'css' }
   ],
   /*
   ** Plugins to load before mounting the App
@@ -74,6 +75,6 @@ module.exports = {
     }
   },
   server: {
-    port: 9000
+    port: 9012
   }
 }
