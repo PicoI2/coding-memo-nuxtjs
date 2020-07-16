@@ -15,8 +15,11 @@ export default {
     },
     computed: {
         formatedCode () {
-            let formated = hljs.highlight('js', this.code, true).value;
-            return formated.replace(/({{|}})/g, '<span>$1</span>')
+            if (this.code) {
+                let formated = hljs.highlight('js', this.code, true).value;
+                return formated.replace(/({{|}})/g, '<span>$1</span>')
+            }
+            return '';
         }
     }
 }

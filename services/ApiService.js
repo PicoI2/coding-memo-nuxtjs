@@ -13,4 +13,7 @@ export default {
     getLanguages() {
         return apiClient.get('/languages');
     },
+    getCodeExamples(id) {
+        return apiClient.get(`/codeexamples/${id}`);
+    },
 }
