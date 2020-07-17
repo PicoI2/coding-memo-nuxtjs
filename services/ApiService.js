@@ -16,4 +16,7 @@ export default {
     getCodeExamples(id) {
         return apiClient.get(`/codeexamples/${id}`);
     },
+    getExamples() {
+        return apiClient.get(`/examples`);
+    },
 }

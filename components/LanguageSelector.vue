@@ -2,9 +2,6 @@
 <div>
     <h1 class="display-1">Select language {{columnIndex}}:</h1>
     <v-select v-model="languageId" :items="languages" item-text="name" item-value="id" @change="languageSelected"></v-select>
-    <div v-if="languageId">
-        <LanguageExample v-for="(column, indexCol) in codeExamples[languageId]" :key="indexCol" :code="codeExamples[languageId][indexCol].code"/>
-    </div>
 </div>
 </template>
 
@@ -13,15 +10,7 @@
 import { mapState } from 'vuex';
 import { mapMutations } from 'vuex';
 
-import LanguageExample from '@/components/LanguageExample.vue'
-
 export default {
-    components: {
-        LanguageExample,
-    },
-    // created: async () => {
-    //     await context.store.dispatch('languages/fetchLanguages');
-    // },
     props: {
         columnIndex: Number
     },
@@ -46,7 +35,7 @@ export default {
         ...mapMutations({setSelectedLanguage: 'GlobalStore/SET_SELECTED_LANGUAGE'}),
         languageSelected() {
             // this.$store.commit('GlobalStore/SET_SELECTED_LANGUAGE', this.columnIndex, this.language);
-            this.setSelectedLanguage({columnIndex: this.columnIndex, language: this.languageId});
+            this.setSelectedLanguage({columnIndex: this.columnIndex, languageId: this.languageId});
             if (!this.codeExamples[this.languageId]) {
                 this.$store.dispatch('GlobalStore/fetchCodeExamples', this.languageId);
             }
