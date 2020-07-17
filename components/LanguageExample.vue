@@ -1,6 +1,6 @@
 <template>
-<div v-html="formatedCode">
-</div>
+<pre v-html="formatedCode">
+</pre>
 </template>
 
 <script>

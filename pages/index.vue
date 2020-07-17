@@ -1,13 +1,13 @@
 <template>
     <v-container fluid>
         <v-row justify="space-around">
-            <v-col justify="space-around">
+            <v-col justify="space-around" cols="6">
                 <LanguageExamples :columnIndex="1"/>
                 <span v-if="selectedLanguages[1]">
                     {{selectedLanguages[1]}} has been chosen
                 </span>
             </v-col>
-            <v-col justify="space-around">
+            <v-col justify="space-around" cols="6">
                 <LanguageExamples :columnIndex="2"/>
                 <span v-if="selectedLanguages[2]">
                     {{selectedLanguages[2]}} has been chosen

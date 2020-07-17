@@ -47,7 +47,9 @@ export default {
         languageSelected() {
             // this.$store.commit('GlobalStore/SET_SELECTED_LANGUAGE', this.columnIndex, this.language);
             this.setSelectedLanguage({columnIndex: this.columnIndex, language: this.languageId});
-            this.$store.dispatch('GlobalStore/fetchCodeExamples', this.languageId);
+            if (!this.codeExamples[this.languageId]) {
+                this.$store.dispatch('GlobalStore/fetchCodeExamples', this.languageId);
+            }
         } 
     },
 }
