@@ -1,6 +1,8 @@
 <template>
+<v-card>
 <pre v-html="formatedCode">
 </pre>
+</v-card>
 </template>
 
 <script>
