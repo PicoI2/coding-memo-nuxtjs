@@ -1,15 +1,8 @@
 <template>
     <v-container fluid>
         
-        <v-row justify="space-around" class="sticky">
-            <v-col justify="space-around" cols="2"/>
-            <v-col justify="space-around" cols="5">
-                <LanguageSelector :columnIndex="1"/>
-            </v-col>
-            <v-col justify="space-around" cols="5">
-                <LanguageSelector :columnIndex="2"/>
-            </v-col>
-        </v-row>
+        <h1 v-if="language">{{language.name}}</h1>
+        <h1 v-if="!language">NO LANGUAGE</h1>
         
         <v-row v-for="example in examples" :key="example.id" justify="space-around">
             <v-col justify="space-around" cols="2">
@@ -20,11 +13,8 @@
                     {{example.description}}
                 </v-card>
             </v-col>
-            <v-col justify="space-around" cols="5">
+            <v-col justify="space-around" cols="10">
                 <LanguageExample :code="getCode(1, example.id)"/>
-            </v-col>
-            <v-col justify="space-around" cols="5">
-                <LanguageExample :code="getCode(2, example.id)"/>
             </v-col>
         </v-row>
     </v-container>
@@ -42,10 +32,19 @@ export default {
         LanguageExample,
         LanguageSelector,
     },
+    data () {
+		return {
+			language: undefined,
+		};
+	},
     async fetch (context) {
         try {
-            await context.store.dispatch('GlobalStore/fetchLanguages');
-            await context.store.dispatch('GlobalStore/fetchExamples');
+            const res = await context.store.dispatch('GlobalStore/fetchLanguages');
+            const languageName = context.params.language.toUpperCase();
+            this.language = context.store.state.GlobalStore.languages.find(language => language.name.toUpperCase()==languageName);
+            if (this.language) {
+                await context.store.dispatch('GlobalStore/fetchCodeExamples', this.language.id);
+            }
         }
         catch(e) {
             context.error({statusCode: 503, message: 'Unable to fetch languages at this time.'});
@@ -55,16 +54,14 @@ export default {
         ...mapState({
             languages: state => state.GlobalStore.languages,
             examples: state => state.GlobalStore.examples,
-            selectedLanguages: state => state.GlobalStore.selectedLanguages,
             codeExamples: state => state.GlobalStore.codeExamples,
         }),
     },
     methods: {
-        getCode(column, exampleId) {
+        getCode(exampleId) {
             let code = '';
-            const selectedLanguagesId = this.selectedLanguages[column];
-            if (selectedLanguagesId && this.codeExamples[selectedLanguagesId]) {
-                const codeExample = this.codeExamples[selectedLanguagesId].find(codeExample => codeExample.example_id==exampleId);
+            if (this.language && this.language.id && this.codeExamples[this.language.id]) {
+                const codeExample = this.codeExamples[this.language.id].find(codeExample => codeExample.example_id==exampleId);
                 if (codeExample) {
                     return codeExample.code;
                 }
@@ -74,11 +71,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-.sticky {
-	position: sticky;
-    top: 4em;
-    z-index: 1;
-}
-</style>
