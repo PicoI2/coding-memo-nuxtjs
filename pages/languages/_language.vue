@@ -2,7 +2,6 @@
     <v-container fluid>
         
         <h1 v-if="language">{{language.name}}</h1>
-        <h1 v-if="!language">NO LANGUAGE</h1>
         
         <v-row v-for="example in examples" :key="example.id" justify="space-around">
             <v-col justify="space-around" cols="2">
@@ -34,20 +33,25 @@ export default {
     },
     data () {
 		return {
-			language: undefined,
+			// language: undefined,
+			// languageId: undefined,
 		};
 	},
-    async fetch (context) {
+    async fetch ({ store, error, params }) {
         try {
-            const res = await context.store.dispatch('GlobalStore/fetchLanguages');
-            const languageName = context.params.language.toUpperCase();
-            this.language = context.store.state.GlobalStore.languages.find(language => language.name.toUpperCase()==languageName);
-            if (this.language) {
-                await context.store.dispatch('GlobalStore/fetchCodeExamples', this.language.id);
+            await store.dispatch('GlobalStore/fetchLanguages');
+            await store.dispatch('GlobalStore/fetchExamples');
+            
+            const languageName = params.language.toUpperCase();
+            const language = store.state.GlobalStore.languages.find(language => language.name.toUpperCase()==languageName);
+            if (language) {
+                // I tried to modify this here, but on the client side language and languageId are undefined !
+                // this.languageId = language.id;
+                await store.dispatch('GlobalStore/fetchCodeExamples', language.id);
             }
         }
         catch(e) {
-            context.error({statusCode: 503, message: 'Unable to fetch languages at this time.'});
+            error({statusCode: 503, message: 'Unable to fetch languages at this time.'});
         };
     },
     computed: {
@@ -55,7 +59,12 @@ export default {
             languages: state => state.GlobalStore.languages,
             examples: state => state.GlobalStore.examples,
             codeExamples: state => state.GlobalStore.codeExamples,
+            languageId: state => state.GlobalStore.languageId,
         }),
+        language() {
+            const language = this.languages.find(language => language.id==this.languageId);
+            return language;
+        }
     },
     methods: {
         getCode(exampleId) {

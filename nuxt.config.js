@@ -1,3 +1,4 @@
+const ApiService = require('./services/ApiService.js');
 const colors = require('vuetify/es5/util/colors').default
 
 module.exports = {
@@ -76,5 +77,15 @@ module.exports = {
   },
   server: {
     port: 9012
+  }
+,
+  generate: {
+    routes: () => {
+      return ApiService.getLanguages().then(response => {
+        return response.data.map(language => {
+          return '/languages/' + language.name
+        })
+      })
+    }
   }
 }

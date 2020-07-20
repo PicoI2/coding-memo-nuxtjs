@@ -6,6 +6,7 @@ export const state = () => ({
     examples: [],
     selectedLanguages: [],
     codeExamples: [],
+    languageId: undefined,
 });
 export const mutations = {
     SET_LANGUAGES(state, languages) {
@@ -19,6 +20,7 @@ export const mutations = {
     },
     SET_CODE_EXAMPLES(state, {languageId, codeExamples}) {
         Vue.set(state.codeExamples, languageId, codeExamples);    // Vue.set must be used to replace element in array
+        state.languageId = languageId;
     },
 }
 export const actions = {
