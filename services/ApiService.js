@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
     
 const apiClient = axios.create({
     baseURL: `http://localhost:9012/api`,
@@ -9,7 +9,7 @@ const apiClient = axios.create({
     }
 });
 
-const apiService = {
+export default {
     getLanguages() {
         return apiClient.get('/languages');
     },
@@ -19,6 +19,4 @@ const apiService = {
     getExamples() {
         return apiClient.get(`/examples`);
     },
-};
-
-module.exports = apiService;
+}

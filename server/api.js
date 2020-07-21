@@ -1,7 +1,7 @@
 'use strict'
 
-const express = require("express");
-const api = express.Router();
+const api = require("express")();
+// const api = express.Router();
 const {sequelize, Language, Example, CodeExample} = require("./database.js")
 
 api.get("/languages", async (req, res, next) => {
@@ -19,4 +19,5 @@ api.get("/codeexamples/:language", async (req, res, next) => {
     res.send(codeexamples);
 });
 
-module.exports = api;
+// module.exports = api;
+module.exports = { path: '/api', handler: api }
