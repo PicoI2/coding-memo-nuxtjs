@@ -19,5 +19,4 @@ api.get("/codeexamples/:language", async (req, res, next) => {
     res.send(codeexamples);
 });
 
-// module.exports = api;
-module.exports = { path: '/api', handler: api }
+module.exports = api;

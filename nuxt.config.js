@@ -86,6 +86,7 @@ module.exports = {
         }
     },
     server: {
+        host: '0.0.0.0',
         port: 9012
     }
     ,
@@ -101,6 +102,6 @@ module.exports = {
     telemetry: true,
     // https://medium.com/@mitsuyawatanabe/how-to-start-express-project-in-nuxt-2-x-d3406c92a8ca
     serverMiddleware: [
-        '~/server/api.js',
-    ]
+        { path: '/api', handler: '~/server/api.js' },
+    ],
 }
