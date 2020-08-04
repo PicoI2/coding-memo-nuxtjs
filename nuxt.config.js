@@ -53,6 +53,7 @@ module.exports = {
     ** Nuxt.js modules
     */
     modules: [
+        '@nuxtjs/axios',
     ],
     /*
     ** vuetify module configuration
@@ -104,4 +105,11 @@ module.exports = {
     serverMiddleware: [
         { path: '/api', handler: '~/server/api.js' },
     ],
+    axios: {
+        prefix: `/api`,
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+    }
 }

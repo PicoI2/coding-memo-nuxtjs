@@ -25,17 +25,17 @@ export const mutations = {
 }
 export const actions = {
     fetchLanguages({ commit }) {
-        return ApiService.getLanguages().then(response => {
+        return this.$axios.get('/languages').then(response => {
             commit('SET_LANGUAGES', response.data);
         });
     },
     fetchExamples({ commit }) {
-        return ApiService.getExamples().then(response => {
+        return this.$axios.get(`/examples`).then(response => {
             commit('SET_EXAMPLES', response.data);
         });
     },
     fetchCodeExamples({ commit }, languageId) {
-        return ApiService.getCodeExamples(languageId).then(response => {
+        return this.$axios.get(`/codeexamples/${languageId}`).then(response => {
             commit('SET_CODE_EXAMPLES', {languageId, codeExamples: response.data});
         });
     },
