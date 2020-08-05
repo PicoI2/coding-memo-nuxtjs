@@ -13,7 +13,7 @@
                 </v-card>
             </v-col>
             <v-col justify="space-around" cols="10">
-                <LanguageExample :code="getCode(1, example.id)"/>
+                <LanguageExample :code="getCode(example.id)"/>
             </v-col>
         </v-row>
     </v-container>
