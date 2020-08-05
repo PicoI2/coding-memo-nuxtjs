@@ -17,15 +17,15 @@ module.exports = {
     ** See https://nuxtjs.org/api/configuration-head
     */
     head: {
-        titleTemplate: '%s - ' + process.env.npm_package_name,
-        title: process.env.npm_package_name || '',
+        titleTemplate: '%s ' + 'codingmemo.ovh',
+        // title: 'codingmemo.ovh' || '',
         meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+            { charset: 'utf-8' },
+            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+            { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
         ],
         link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
         ]
     },
     /*
@@ -106,7 +106,7 @@ module.exports = {
         { path: '/api', handler: '~/server/api.js' },
     ],
     axios: {
-        prefix: `/api`,
+        baseURL: (process.env.NODE_ENV !== 'production') ? 'http://localhost:9012/api' : 'http://codingmemo.ovh/api',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'

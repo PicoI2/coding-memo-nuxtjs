@@ -27,6 +27,11 @@ import LanguageExample from '@/components/LanguageExample.vue'
 import LanguageSelector from '@/components/LanguageSelector.vue'
 
 export default {
+    head() {
+        return {
+            title: this.language ? this.language.name : '',
+        }
+    },
     components: {
         LanguageExample,
         LanguageSelector,
